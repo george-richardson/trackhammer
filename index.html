@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Quattrocento" rel="stylesheet">
+  <title>Trackhammer</title>
+  <style>
+    html {
+      margin: 0;
+      height: 100%;
+      background-color: #252525;
+      color: #fafafa;
+      font-family: 'Quattrocento', serif;
+    }
+
+    body {
+      margin: 0;
+      height: 100%;
+      background: url(aquila.svg) no-repeat bottom right;
+      background-size: contain;
+    }
+
+    .rows {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .columns {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title {
+      text-align: center;
+    }
+
+    .grow {
+      flex-grow: 1;
+    }
+
+    .value {
+      font-size: 25vh;
+    }
+
+    .unit {
+      font-size: 10vh;
+      color: #909090;
+    }
+
+    button {
+      background-color: rgba(0, 0, 0, 0);
+      color: #fafafa;
+      border: 0;
+    }
+
+    .bigButton {
+      font-size: 5vh;
+    }
+
+    a {
+      color: #909090;
+    }
+
+    button:focus {
+      outline: 0;
+    }
+  </style>
+</head>
+
+<body class="columns">
+  <div class="rows">
+    <button class="grow bigButton" onclick="decrementValue('turn')">-</button>
+    <span><span class="unit">turn</span><span class="value" id="turn">0</span></span>
+    <button class="grow bigButton" onclick="incrementValue('turn')">+</button>
+  </div>
+
+  <div class="rows grow">
+    <div class=" columns grow">
+      <span class="title">Player 1</span>
+      <div class="rows grow">
+        <button class="grow bigButton" onclick="decrementValue('p1vp')">-</button>
+        <span><span class="value" id="p1vp">0</span><span class="unit">VP</span></span>
+        <button class="grow bigButton" onclick="incrementValue('p1vp')">+</button>
+      </div>
+      <div class="rows grow">
+        <button class="grow bigButton" onclick="decrementValue('p1cp')">-</button>
+        <span><span class="value" id="p1cp">0</span><span class="unit">CP</span></span>
+        <button class="grow bigButton" onclick="incrementValue('p1cp')">+</button>
+      </div>
+    </div>
+
+    <div class=" columns grow">
+      <span class="title">Player 2</span>
+      <div class="rows grow">
+        <button class="grow bigButton" onclick="decrementValue('p2vp')">-</button>
+        <span><span class="value" id="p2vp">0</span><span class="unit">VP</span></span>
+        <button class="grow bigButton" onclick="incrementValue('p2vp')">+</button>
+      </div>
+      <div class="rows grow">
+        <button class="grow bigButton" onclick="decrementValue('p2cp')">-</button>
+        <span><span class="value" id="p2cp">0</span><span class="unit">CP</span></span>
+        <button class="grow bigButton" onclick="incrementValue('p2cp')">+</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="" onclick="reset()">Reset</button>
+  <a href="https://gjhr.me">Made by George Richardson</a>
+
+  <script>
+    var state = {
+      turn: 1,
+      p1vp: 0,
+      p2vp: 0,
+      p1cp: 0,
+      p2cp: 0
+    };
+
+    function updateValues() {
+      Object.keys(state).forEach((key) =>
+        document.getElementById(key).textContent = state[key]
+      );
+    }
+
+    function incrementValue(key) {
+      state[key]++;
+      updateValues();
+    }
+
+    function decrementValue(key) {
+      if (state[key] !== 0) state[key]--;
+      updateValues();
+    }
+
+    function reset() {
+      state = {
+        turn: 1,
+        p1vp: 0,
+        p2vp: 0,
+        p1cp: 0,
+        p2cp: 0
+      };
+      updateValues();
+    }
+    updateValues();
+  </script>
+</body>
+
+</html>
