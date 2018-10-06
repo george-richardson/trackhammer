@@ -67,19 +67,33 @@
     button:focus {
       outline: 0;
     }
+
+    input {
+      appearance: none;
+      background-color: transparent;
+      color: #fafafa;
+      border: 0;
+      text-align: center;
+      font-family: 'Quattrocento', serif;
+      font-size: 1.5em;
+    }
+
+    input:focus {
+      outline: 0;
+    }
   </style>
 </head>
 
 <body class="columns">
   <div class="rows">
     <button class="grow bigButton" onclick="decrementValue('turn')">-</button>
-    <span><span class="unit">turn</span><span class="value" id="turn">0</span></span>
+    <span><span class="unit">Turn</span> <span class="value" id="turn">0</span></span>
     <button class="grow bigButton" onclick="incrementValue('turn')">+</button>
   </div>
 
   <div class="rows grow">
     <div class=" columns grow">
-      <span class="title">Player 1</span>
+      <input type="text" value="Player 1" />
       <div class="rows grow">
         <button class="grow bigButton" onclick="decrementValue('p1vp')">-</button>
         <span><span class="value" id="p1vp">0</span><span class="unit">VP</span></span>
@@ -93,7 +107,7 @@
     </div>
 
     <div class=" columns grow">
-      <span class="title">Player 2</span>
+      <input type="text" value="Player 2" />
       <div class="rows grow">
         <button class="grow bigButton" onclick="decrementValue('p2vp')">-</button>
         <span><span class="value" id="p2vp">0</span><span class="unit">VP</span></span>
