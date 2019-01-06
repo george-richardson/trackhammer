@@ -1,0 +1,25 @@
+language: generic
+
+env:
+  global:
+    - PATH=$HOME/.local/bin:$PATH
+
+deploy:
+  - provider: script
+    on:
+      branch: master
+    skip_cleanup: true
+    script: "bash deploytf.sh"
+  - provider: s3
+    on:
+      branch: master
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: trackhammer.gjhr.me
+    skip_cleanup: true
+    local_dir: site
+    region: eu-west-1
+
+after_script:
+  - pip install --user awscli
+  - aws cloudfront create-invalidation --distribution-id E15QMQGGJQJVR4 --paths '/*' 
