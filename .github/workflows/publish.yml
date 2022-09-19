@@ -1,0 +1,36 @@
+name: Publish
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          lfs: true
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::000106928613:role/GitHub
+          role-session-name: trackhammer-publish
+          aws-region: eu-west-1
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.2.9
+      - name: Terraform Init
+        run: terraform init -input=false
+        shell: bash
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        shell: bash
+      - name: Publish
+        run: aws s3 sync site/ s3://trackhammer.gjhr.me-origin
